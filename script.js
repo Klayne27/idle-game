@@ -97,7 +97,7 @@ class Monster {
     btnLevelupText.textContent = `Level up: 💰${this.price.toFixed(2)}`;
 
     const monsterLevel = this.elementContainer.querySelector(".mon-level");
-    monsterLevel.textContent = `${this.name} level ${this.level}`;
+    monsterLevel.textContent = `level ${this.level}`;
   }
 }
 
@@ -156,59 +156,59 @@ monContainer1
   .querySelector(".btn-levelup")
   .addEventListener("click", slime.buyLevel.bind(slime));
 monContainer1
-  .querySelector(".mon-level")
+  .querySelector(".mon-name")
   .addEventListener("click", slime.clickMonster.bind(slime));
 monContainer2
   .querySelector(".btn-levelup")
   .addEventListener("click", rat.buyLevel.bind(rat));
 monContainer2
-  .querySelector(".mon-level")
+  .querySelector(".mon-name")
   .addEventListener("click", rat.clickMonster.bind(rat));
 monContainer3
   .querySelector(".btn-levelup")
   .addEventListener("click", sprout.buyLevel.bind(sprout));
 monContainer3
-  .querySelector(".mon-level")
+  .querySelector(".mon-name")
   .addEventListener("click", sprout.clickMonster.bind(sprout));
 monContainer4
   .querySelector(".btn-levelup")
   .addEventListener("click", imp.buyLevel.bind(imp));
 monContainer4
-  .querySelector(".mon-level")
+  .querySelector(".mon-name")
   .addEventListener("click", imp.clickMonster.bind(imp));
 monContainer5
   .querySelector(".btn-levelup")
   .addEventListener("click", hawk.buyLevel.bind(hawk));
 monContainer5
-  .querySelector(".mon-level")
+  .querySelector(".mon-name")
   .addEventListener("click", hawk.clickMonster.bind(hawk));
 monContainer6
   .querySelector(".btn-levelup")
   .addEventListener("click", hound.buyLevel.bind(hound));
 monContainer6
-  .querySelector(".mon-level")
+  .querySelector(".mon-name")
   .addEventListener("click", hound.clickMonster.bind(hound));
 monContainer7
   .querySelector(".btn-levelup")
   .addEventListener("click", bear.buyLevel.bind(bear));
 monContainer7
-  .querySelector(".mon-level")
+  .querySelector(".mon-name")
   .addEventListener("click", bear.clickMonster.bind(bear));
 monContainer8
   .querySelector(".btn-levelup")
   .addEventListener("click", werewolf.buyLevel.bind(werewolf));
 monContainer8
-  .querySelector(".mon-level")
+  .querySelector(".mon-name")
   .addEventListener("click", werewolf.clickMonster.bind(werewolf));
 monContainer9
   .querySelector(".btn-levelup")
   .addEventListener("click", golem.buyLevel.bind(golem));
 monContainer9
-  .querySelector(".mon-level")
+  .querySelector(".mon-name")
   .addEventListener("click", golem.clickMonster.bind(golem));
 monContainer10
   .querySelector(".btn-levelup")
   .addEventListener("click", troll.buyLevel.bind(troll));
 monContainer10
-  .querySelector(".mon-level")
+  .querySelector(".mon-name")
   .addEventListener("click", troll.clickMonster.bind(troll));
