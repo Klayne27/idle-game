@@ -50,14 +50,18 @@ body {
   background-color: #4caf50;
   color: white;
   border: none;
-  border-radius: 50%;
-  width: 100px;
-  height: 60px;
+  border-radius: 40%;
+  width: 120px;
+  height: 70px;
   cursor: pointer;
 }
 
 .mon-name:hover {
-  background-color: #45a049;
+  background-color: rgb(190, 42, 42);
+}
+
+.mon-name:active {
+background-color: rgb(156, 35, 35)
 }
 
 .mon-level {
@@ -98,6 +102,14 @@ body {
   width: 200px;
 }
 
+.btn-levelup:hover {
+  background-color: #ee8403;
+}
+
+.btn-levelup:active {
+background-color: #d87803;
+}
+
 .timer {
   font-size: 14px;
   color: #777;
@@ -109,6 +121,3 @@ body {
   width: 100px;
 }
 
-.btn-levelup:hover {
-  background-color: #fb8c00;
-}

@@ -8,6 +8,7 @@ const monContainers = [
   document.querySelector(".mon-container5"),
   document.querySelector(".mon-container6"),
   document.querySelector(".mon-container7"),
+  document.querySelector(".mon-container8"),
   document.querySelector(".mon-container9"),
   document.querySelector(".mon-container10"),
 ];
@@ -15,7 +16,7 @@ const monContainers = [
 let totalGoldGain = 0;
 
 const player = {
-  gold: 4,
+  gold: 99999999999,
 };
 
 class Monster {
@@ -26,28 +27,59 @@ class Monster {
     goldDrop,
     level,
     elementContainer,
-    timerMulitplier
+    timerMultiplier
   ) {
-    (this.name = name),
-      (this.price = price),
-      (this.baseGoldDrop = baseGoldDrop),
-      (this.goldDrop = goldDrop),
-      (this.level = level),
-      (this.elementContainer = elementContainer);
-    this.timerMulitplier = timerMulitplier;
+    this.name = name;
+    this.price = price;
+    this.baseGoldDrop = baseGoldDrop;
+    this.goldDrop = goldDrop;
+    this.level = level;
+    this.elementContainer = elementContainer;
+    this.timerMultiplier = timerMultiplier;
     this.isTimed = false;
+    this.timerInterval = null;
+    this.remainingTime = timerMultiplier;
   }
 
   clickMonster() {
-    if (this.isTimed) return;
-    this.isTimed = true;
-    const killTime = 1000 * this.timerMulitplier;
+    if (this.level > 0) {
+      if (this.isTimed) return;
+      this.isTimed = true;
+      this.startTimer();
+    }
+  }
 
-    setTimeout(() => {
-      player.gold += this.goldDrop;
-      goldDisplay.textContent = `Gold: 💰${player.gold.toFixed(2)}`;
-      this.isTimed = false;
-    }, killTime);
+  startTimer() {
+    this.remainingTime = this.timerMultiplier;
+    this.updateTimerDisplay();
+
+    this.timerInterval = setInterval(() => {
+      this.remainingTime--;
+      this.updateTimerDisplay();
+
+      if (this.remainingTime < 0) {
+        clearInterval(this.timerInterval);
+        this.isTimed = false;
+        player.gold += this.goldDrop;
+        goldDisplay.textContent = `Gold: 💰${player.gold.toFixed(2)}`;
+        this.resetTimer();
+      }
+    }, 1000);
+  }
+
+  resetTimer() {
+        this.remainingTime = this.timerMultiplier;
+        this.updateTimerDisplay();
+  }
+
+  updateTimerDisplay() {
+    const timerElement = this.elementContainer.querySelector(".timer");
+    const hours = Math.floor(this.remainingTime / 3600);
+    const minutes = Math.floor((this.remainingTime % 3600) / 60);
+    const seconds = this.remainingTime % 60;
+    timerElement.textContent = `${String(hours).padStart(2, "0")}:${String(
+      minutes
+    ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }
 
   buyLevel() {
@@ -57,6 +89,7 @@ class Monster {
       this.goldDrop += this.baseGoldDrop;
       totalGoldGain += this.baseGoldDrop;
       console.log(totalGoldGain);
+      console.log(this.level);
       this.monsterScaling();
       this.updateUI();
     } else {
@@ -77,7 +110,7 @@ class Monster {
       Golem: 1.08,
       Troll: 1.07,
     };
-    this.price *= scalingFactors[this.name] || 1;
+    this.price *= scalingFactors[this.name];
   }
 
   updateUI() {
@@ -97,38 +130,14 @@ class Monster {
 const monsters = [
   new Monster("Slime", 4, 1, 0, 0, monContainers[0], 1),
   new Monster("Rat", 60, 60, 0, 0, monContainers[1], 3),
-  new Monster("Sprout", 720, 540, 540, 0, monContainers[2], 6),
-  new Monster("Imp", 8640, 4320, 4320, 0, monContainers[3], 12),
-  new Monster("Hawk", 103680, 51840, 51840, 0, monContainers[4], 24),
-  new Monster("Hound", 1244160, 622080, 622080, 0, monContainers[5], 96),
-  new Monster("Bear", 14929920, 7464960, 7464960, 0, monContainers[6], 384),
-  new Monster(
-    "Werewolf",
-    179159040,
-    89579520,
-    89579520,
-    0,
-    monContainers[7],
-    1536
-  ),
-  new Monster(
-    "Golem",
-    2149908480,
-    1074954240,
-    1074954240,
-    0,
-    monContainers[8],
-    6144
-  ),
-  new Monster(
-    "Troll",
-    25798901760,
-    29668737024,
-    29668737024,
-    0,
-    monContainers[9],
-    36864
-  ),
+  new Monster("Sprout", 720, 540, 0, 0, monContainers[2], 6),
+  new Monster("Imp", 8640, 4320, 0, 0, monContainers[3], 12),
+  new Monster("Hawk", 103680, 51840, 0, 0, monContainers[4], 24),
+  new Monster("Hound", 1244160, 622080, 0, 0, monContainers[5], 96),
+  new Monster("Bear", 14929920, 7464960, 0, 0, monContainers[6], 384),
+  new Monster("Werewolf", 179159040, 89579520, 0, 0, monContainers[7], 1536),
+  new Monster("Golem", 2149908480, 1074954240, 0, 0, monContainers[8], 6144),
+  new Monster("Troll", 25798901760, 29668737024, 0, 0, monContainers[9], 36864),
 ];
 
 function addEventListeners(monster) {
