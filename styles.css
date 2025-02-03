@@ -215,3 +215,11 @@ body {
   background-color: #51565e;
   cursor: not-allowed;
 }
+
+.image {
+    position: absolute; /* Allows movement */
+    left: 20px; /* Moves image 50px from the left */
+    top: 10px; /* Moves image 20px from the top */
+    width:70px;
+    height: 70px;
+}
