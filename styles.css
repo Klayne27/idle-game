@@ -8,6 +8,7 @@ body {
   min-height: 100vh;
   min-width: 100vh;
   background-color: #6b7077;
+  user-select: none;
 }
 
 .whole-screen {
@@ -194,6 +195,11 @@ body {
 
 
 .unlock-button.cannot-afford {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.btn-levelup.cannot-afford {
   background-color: grey;
   cursor: not-allowed;
 }

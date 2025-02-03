@@ -165,9 +165,12 @@ class Monster {
   }
 
   updateUnlockButton() {
+    const levelUpButton = this.elementContainer.querySelector('.btn-levelup')
     const unlockButton = this.elementContainer.querySelector(".unlock-button");
     if (!unlockButton) return;
+    if (!levelUpButton) return;
 
+    levelUpButton.classList.toggle("cannot-afford", player.gold < this.price);
     unlockButton.classList.toggle("cannot-afford", player.gold < this.unlockPrice);
   }
 }
