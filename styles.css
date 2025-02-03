@@ -7,7 +7,7 @@
 body {
   min-height: 100vh;
   min-width: 100vh;
-  background-color: 	#6b7077
+  background-color: #6b7077;
 }
 
 .whole-screen {
@@ -37,10 +37,6 @@ body {
   row-gap: 2px;
   align-items: center;
   padding: 10px;
-  /*
-  border: 1px solid #ddd;
-  background-color: #f9f9f9;\
-  */
   border-radius: 8px;
   width: 450px;
 }
@@ -64,7 +60,7 @@ body {
 }
 
 .mon-name:active {
-background-color: rgb(156, 35, 35)
+  background-color: rgb(156, 35, 35);
 }
 
 .mon-level {
@@ -74,7 +70,7 @@ background-color: rgb(156, 35, 35)
   color: white;
   text-align: center;
   justify-self: center;
-  border: 2px solid 	#1e2124;
+  border: 2px solid #1e2124;
   background-color: #282b30;
   padding: 7px 40px;
   border-radius: 10px;
@@ -91,6 +87,27 @@ background-color: rgb(156, 35, 35)
   border: 2px solid #1e2124;
   padding: 15px 110px;
   border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  background-color: #6b7077; 
+}
+
+/* Added fill effect */
+.gold-drop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--fill-width, 100%);
+  background-color: #4caf4f9c; /* Semi-transparent green fill */
+  transition: width 1s linear;
+  z-index: 0;
+}
+
+.gold-drop span {
+  position: relative; /* Ensure text stays above the fill */
+  z-index: 2;
 }
 
 .button-timer-container {
@@ -118,7 +135,7 @@ background-color: rgb(156, 35, 35)
 }
 
 .btn-levelup:active {
-background-color: #d87803;
+  background-color: #d87803;
 }
 
 .timer {
@@ -133,3 +150,7 @@ background-color: #d87803;
   width: 100px;
 }
 
+.gold-drop.filled::before {
+  width: 0;
+  transition: none; /* Remove transition when the bar is filled */
+}

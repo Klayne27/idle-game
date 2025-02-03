@@ -53,8 +53,10 @@ class Monster {
     this.remainingTime = this.timerMultiplier;
     this.updateTimerDisplay();
 
-    this.timerInterval = setInterval(() => {
+    const timerStep = () => {
       this.remainingTime--;
+      const goldDropElement = this.elementContainer.querySelector(".gold-drop");
+      goldDropElement.classList.remove("filled");
       this.updateTimerDisplay();
 
       if (this.remainingTime < 0) {
@@ -62,14 +64,20 @@ class Monster {
         this.isTimed = false;
         player.gold += this.goldDrop;
         goldDisplay.textContent = `Gold: 💰${player.gold.toFixed(2)}`;
+        const goldDropElement = this.elementContainer.querySelector(".gold-drop");
+        goldDropElement.classList.add("filled");
         this.resetTimer();
       }
-    }, 1000);
+    };
+
+    // Execute immediately and then every second
+    timerStep();
+    this.timerInterval = setInterval(timerStep, 1000);
   }
 
   resetTimer() {
-        this.remainingTime = this.timerMultiplier;
-        this.updateTimerDisplay();
+    this.remainingTime = this.timerMultiplier;
+    this.updateTimerDisplay();
   }
 
   updateTimerDisplay() {
@@ -80,6 +88,12 @@ class Monster {
     timerElement.textContent = `${String(hours).padStart(2, "0")}:${String(
       minutes
     ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+    // Update the gold-drop fill width
+    const goldDropElement = this.elementContainer.querySelector(".gold-drop");
+    const fillPercentage =
+      ((this.timerMultiplier - this.remainingTime) / this.timerMultiplier) * 100;
+    goldDropElement.style.setProperty("--fill-width", `${fillPercentage}%`);
   }
 
   buyLevel() {
