@@ -123,7 +123,7 @@ class Monster {
     btnLevelupText.textContent = `Level up: 💰${this.price.toFixed(2)}`;
 
     const monsterLevel = this.elementContainer.querySelector(".mon-level");
-    monsterLevel.textContent = `level ${this.level}`;
+    monsterLevel.textContent = `Level ${this.level}`;
   }
 }
 
