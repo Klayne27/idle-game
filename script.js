@@ -70,7 +70,6 @@ class Monster {
       }
     };
 
-    // Execute immediately and then every second
     timerStep();
     this.timerInterval = setInterval(timerStep, 1000);
   }
@@ -89,7 +88,6 @@ class Monster {
       minutes
     ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
-    // Update the gold-drop fill width
     const goldDropElement = this.elementContainer.querySelector(".gold-drop");
     const fillPercentage =
       ((this.timerMultiplier - this.remainingTime) / this.timerMultiplier) * 100;

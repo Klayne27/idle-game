@@ -80,6 +80,7 @@ body {
   grid-column: 2;
   grid-row: 1;
   font-size: 14px;
+  font-weight: bold;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -92,7 +93,6 @@ body {
   background-color: #6b7077; 
 }
 
-/* Added fill effect */
 .gold-drop::before {
   content: '';
   position: absolute;
@@ -100,14 +100,9 @@ body {
   left: 0;
   height: 100%;
   width: var(--fill-width, 100%);
-  background-color: #4caf4f9c; /* Semi-transparent green fill */
+  background-color: #00ff2a6e;
   transition: width 1s linear;
   z-index: 0;
-}
-
-.gold-drop span {
-  position: relative; /* Ensure text stays above the fill */
-  z-index: 2;
 }
 
 .button-timer-container {
@@ -152,5 +147,5 @@ body {
 
 .gold-drop.filled::before {
   width: 0;
-  transition: none; /* Remove transition when the bar is filled */
+  transition: none;
 }
