@@ -13,10 +13,8 @@ const monContainers = [
   document.querySelector(".mon-container10"),
 ];
 
-let totalGoldGain = 0;
-
 const player = {
-  gold: 99999999999,
+  gold: 719,
 };
 
 class Monster {
@@ -27,7 +25,8 @@ class Monster {
     goldDrop,
     level,
     elementContainer,
-    timerMultiplier
+    timerMultiplier,
+    unlockPrice
   ) {
     this.name = name;
     this.price = price;
@@ -39,6 +38,7 @@ class Monster {
     this.isTimed = false;
     this.timerInterval = null;
     this.remainingTime = timerMultiplier;
+    this.unlockPrice = unlockPrice;
   }
 
   clickMonster() {
@@ -50,8 +50,11 @@ class Monster {
   }
 
   startTimer() {
-    this.remainingTime = this.timerMultiplier;
-    this.updateTimerDisplay();
+    if (this.remainingTime < 0) {
+      this.remainingTime = this.timerMultiplier;
+      this.updateTimerDisplay();
+      updateAllUnlockButtons();
+    }
 
     const timerStep = () => {
       this.remainingTime--;
@@ -67,6 +70,7 @@ class Monster {
         const goldDropElement = this.elementContainer.querySelector(".gold-drop");
         goldDropElement.classList.add("filled");
         this.resetTimer();
+        updateAllUnlockButtons();
       }
     };
 
@@ -99,13 +103,22 @@ class Monster {
       player.gold -= this.price;
       this.level++;
       this.goldDrop += this.baseGoldDrop;
-      totalGoldGain += this.baseGoldDrop;
-      console.log(totalGoldGain);
       console.log(this.level);
       this.monsterScaling();
       this.updateUI();
-    } else {
-      console.log("Not enough gold!");
+    }
+    updateAllUnlockButtons();
+  }
+
+  unlockMonster() {
+    if (player.gold >= this.unlockPrice) {
+      player.gold -= this.unlockPrice;
+      this.elementContainer.classList.remove("locked");
+      this.elementContainer.querySelector(".unlock-button").remove();
+      this.level++;
+      this.monsterScaling();
+      this.updateUI();
+      updateAllUnlockButtons();
     }
   }
 
@@ -113,7 +126,7 @@ class Monster {
     const scalingFactors = {
       Slime: 1.07,
       Rat: 1.15,
-      Sprout: 1.14,
+      Mudling: 1.14,
       Imp: 1.13,
       Hawk: 1.12,
       Hound: 1.11,
@@ -137,20 +150,56 @@ class Monster {
     const monsterLevel = this.elementContainer.querySelector(".mon-level");
     monsterLevel.textContent = `Level ${this.level}`;
   }
+
+  unlockMonster() {
+    if (player.gold >= this.unlockPrice) {
+      player.gold -= this.unlockPrice;
+      this.goldDrop += this.baseGoldDrop;
+      this.elementContainer.classList.remove("locked");
+      this.elementContainer.querySelector(".unlock-button").style.display = "none";
+      this.level++;
+      this.monsterScaling();
+      this.updateUI();
+      updateAllUnlockButtons();
+    }
+  }
+
+  updateUnlockButton() {
+    const unlockButton = this.elementContainer.querySelector(".unlock-button");
+    if (!unlockButton) return;
+
+    unlockButton.classList.toggle("cannot-afford", player.gold < this.unlockPrice);
+  }
 }
 
 const monsters = [
-  new Monster("Slime", 4, 1, 0, 0, monContainers[0], 1),
-  new Monster("Rat", 60, 60, 0, 0, monContainers[1], 3),
-  new Monster("Sprout", 720, 540, 0, 0, monContainers[2], 6),
-  new Monster("Imp", 8640, 4320, 0, 0, monContainers[3], 12),
-  new Monster("Hawk", 103680, 51840, 0, 0, monContainers[4], 24),
-  new Monster("Hound", 1244160, 622080, 0, 0, monContainers[5], 96),
-  new Monster("Bear", 14929920, 7464960, 0, 0, monContainers[6], 384),
-  new Monster("Werewolf", 179159040, 89579520, 0, 0, monContainers[7], 1536),
-  new Monster("Golem", 2149908480, 1074954240, 0, 0, monContainers[8], 6144),
-  new Monster("Troll", 25798901760, 29668737024, 0, 0, monContainers[9], 36864),
+  new Monster("Slime", 4, 1, 0, 0, monContainers[0], 1, 4),
+  new Monster("Rat", 60, 60, 0, 0, monContainers[1], 3, 60),
+  new Monster("Mudling", 720, 540, 0, 0, monContainers[2], 6, 720),
+  new Monster("Imp", 8640, 4320, 0, 0, monContainers[3], 12, 8640),
+  new Monster("Hawk", 103680, 51840, 0, 0, monContainers[4], 24, 103680),
+  new Monster("Hound", 1244160, 622080, 0, 0, monContainers[5], 96, 1244160),
+  new Monster("Bear", 14929920, 7464960, 0, 0, monContainers[6], 384, 14929920),
+  new Monster("Werewolf", 179159040, 89579520, 0, 0, monContainers[7], 1536, 179159040),
+  new Monster("Golem", 2149908480, 1074954240, 0, 0, monContainers[8], 6144, 2149908480),
+  new Monster(
+    "Troll",
+    25798901760,
+    29668737024,
+    0,
+    0,
+    monContainers[9],
+    36864,
+    25798901760
+  ),
 ];
+
+function updateAllUnlockButtons() {
+  monsters.forEach((monster) => monster.updateUnlockButton());
+}
+
+monsters.forEach((monster) => addEventListeners(monster));
+updateAllUnlockButtons();
 
 function addEventListeners(monster) {
   monster.elementContainer
@@ -159,6 +208,7 @@ function addEventListeners(monster) {
   monster.elementContainer
     .querySelector(".mon-name")
     .addEventListener("click", monster.clickMonster.bind(monster));
+  monster.elementContainer
+    .querySelector(".unlock-button")
+    .addEventListener("click", monster.unlockMonster.bind(monster));
 }
-
-monsters.forEach((monster) => addEventListeners(monster));

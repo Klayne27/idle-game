@@ -39,6 +39,33 @@ body {
   padding: 10px;
   border-radius: 8px;
   width: 450px;
+   position: relative; /* Add this line */
+}
+
+.locked {
+  z-index: 5; /* Add this line */
+  pointer-events: none; /* Optional: Prevent interaction with locked elements */
+}
+
+.locked::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.788);
+  z-index: 1;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.mon-name,
+.mon-level,
+.gold-drop,
+.button-timer-container {
+  position: relative;
+  z-index: 0;
 }
 
 .mon-name {
@@ -47,7 +74,7 @@ body {
   border: 2px solid #1e2124;
   font-size: 16px;
   font-weight: bold;
-  background-color: #4caf50;
+  background-color: #3e4c7a;
   color: white;
   border-radius: 10px;
   width: 120px;
@@ -56,23 +83,24 @@ body {
 }
 
 .mon-name:hover {
-  background-color: rgb(190, 42, 42);
+  background-color: rgb(150, 45, 45);
 }
 
 .mon-name:active {
-  background-color: rgb(156, 35, 35);
+  background-color: rgb(114, 35, 28);
 }
 
 .mon-level {
+  font-weight: bold;
   grid-column: 1;
   grid-row: 2;
-  font-size: 14px;
+  font-size: 20px;
   color: white;
   text-align: center;
   justify-self: center;
   border: 2px solid #1e2124;
   background-color: #282b30;
-  padding: 7px 40px;
+  padding: 0px 30px;
   border-radius: 10px;
 }
 
@@ -100,9 +128,8 @@ body {
   left: 0;
   height: 100%;
   width: var(--fill-width, 100%);
-  background-color: #00ff2a6e;
+  background-color: #1fcc3c6e;
   transition: width 1s linear;
-  z-index: 0;
 }
 
 .button-timer-container {
@@ -114,9 +141,11 @@ body {
 }
 
 .btn-levelup {
+  font-weight: bold;
+  font-size: 17px;
   padding: 8px 16px;
   font-size: 14px;
-  background-color: #ff9800;
+  background-color: #e08132;
   color: white;
   border: 2px solid #1e2124;
   border-radius: 5px;
@@ -125,20 +154,16 @@ body {
   width: 200px;
 }
 
-.btn-levelup:hover {
-  background-color: #ee8403;
-}
-
 .btn-levelup:active {
-  background-color: #d87803;
+  background-color: #b86b2c;
 }
 
 .timer {
-  font-size: 14px;
+  font-size: 20px;
+  font-weight: bold;
   color: white;
   font-family: "Courier New", Courier, monospace;
   background-color: #51565e;
-  padding: 5px 10px;
   border: 2px solid #1e2124;
   border-radius: 5px;
   height: 50px;
@@ -148,4 +173,27 @@ body {
 .gold-drop.filled::before {
   width: 0;
   transition: none;
+}
+
+  .unlock-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  pointer-events: initial;
+  width: 50%;
+  height: 50%;
+  border-radius: 30px;
+  background-color: #e08132;
+  }
+
+  .unlock-button:active {
+    background-color: #b86b2c;
+  }
+
+
+.unlock-button.cannot-afford {
+  background-color: grey;
+  cursor: not-allowed;
 }
