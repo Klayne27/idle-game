@@ -1,15 +1,16 @@
 const goldDisplay = document.querySelector(".total-gold-display");
 
-const monContainer1 = document.querySelector(".mon-container1");
-const monContainer2 = document.querySelector(".mon-container2");
-const monContainer3 = document.querySelector(".mon-container3");
-const monContainer4 = document.querySelector(".mon-container4");
-const monContainer5 = document.querySelector(".mon-container5");
-const monContainer6 = document.querySelector(".mon-container6");
-const monContainer7 = document.querySelector(".mon-container7");
-const monContainer8 = document.querySelector(".mon-container8");
-const monContainer9 = document.querySelector(".mon-container9");
-const monContainer10 = document.querySelector(".mon-container10");
+const monContainers = [
+  document.querySelector(".mon-container1"),
+  document.querySelector(".mon-container2"),
+  document.querySelector(".mon-container3"),
+  document.querySelector(".mon-container4"),
+  document.querySelector(".mon-container5"),
+  document.querySelector(".mon-container6"),
+  document.querySelector(".mon-container7"),
+  document.querySelector(".mon-container9"),
+  document.querySelector(".mon-container10"),
+];
 
 let totalGoldGain = 0;
 
@@ -64,27 +65,19 @@ class Monster {
   }
 
   monsterScaling() {
-    if (this.name === "Slime") {
-      this.price *= 1.07;
-    } else if (this.name === "Rat") {
-      this.price *= 1.15;
-    } else if (this.name === "Sprout") {
-      this.price *= 1.14;
-    } else if (this.name === "Imp") {
-      this.price *= 1.13;
-    } else if (this.name === "Hawk") {
-      this.price *= 1.12;
-    } else if (this.name === "Hound") {
-      this.price *= 1.11;
-    } else if (this.name === "Bear") {
-      this.price *= 1.1;
-    } else if (this.name === "Werewolf") {
-      this.price *= 1.09;
-    } else if (this.name === "Golem") {
-      this.price *= 1.08;
-    } else if (this.name === "Troll") {
-      this.price *= 1.07;
-    }
+    const scalingFactors = {
+      Slime: 1.07,
+      Rat: 1.15,
+      Sprout: 1.14,
+      Imp: 1.13,
+      Hawk: 1.12,
+      Hound: 1.11,
+      Bear: 1.1,
+      Werewolf: 1.09,
+      Golem: 1.08,
+      Troll: 1.07,
+    };
+    this.price *= scalingFactors[this.name] || 1;
   }
 
   updateUI() {
@@ -101,114 +94,50 @@ class Monster {
   }
 }
 
-const slime = new Monster("Slime", 4, 1, 0, 0, monContainer1, 1);
-const rat = new Monster("Rat", 60, 60, 0, 0, monContainer2, 3);
-const sprout = new Monster("Sprout", 720, 540, 540, 0, monContainer3, 6);
-const imp = new Monster("Imp", 8640, 4320, 4320, 0, monContainer4, 12);
-const hawk = new Monster("Hawk", 103680, 51840, 51840, 0, monContainer5, 24);
-const hound = new Monster(
-  "Hound",
-  1244160,
-  622080,
-  622080,
-  0,
-  monContainer6,
-  96
-);
-const bear = new Monster(
-  "Bear",
-  14929920,
-  7464960,
-  7464960,
-  0,
-  monContainer7,
-  384
-);
-const werewolf = new Monster(
-  "Werewolf",
-  179159040,
-  89579520,
-  89579520,
-  0,
-  monContainer8,
-  1536
-);
-const golem = new Monster(
-  "Golem",
-  2149908480,
-  1074954240,
-  1074954240,
-  0,
-  monContainer9,
-  6144
-);
-const troll = new Monster(
-  "Troll",
-  25798901760,
-  29668737024,
-  29668737024,
-  0,
-  monContainer10,
-  36864
-);
+const monsters = [
+  new Monster("Slime", 4, 1, 0, 0, monContainers[0], 1),
+  new Monster("Rat", 60, 60, 0, 0, monContainers[1], 3),
+  new Monster("Sprout", 720, 540, 540, 0, monContainers[2], 6),
+  new Monster("Imp", 8640, 4320, 4320, 0, monContainers[3], 12),
+  new Monster("Hawk", 103680, 51840, 51840, 0, monContainers[4], 24),
+  new Monster("Hound", 1244160, 622080, 622080, 0, monContainers[5], 96),
+  new Monster("Bear", 14929920, 7464960, 7464960, 0, monContainers[6], 384),
+  new Monster(
+    "Werewolf",
+    179159040,
+    89579520,
+    89579520,
+    0,
+    monContainers[7],
+    1536
+  ),
+  new Monster(
+    "Golem",
+    2149908480,
+    1074954240,
+    1074954240,
+    0,
+    monContainers[8],
+    6144
+  ),
+  new Monster(
+    "Troll",
+    25798901760,
+    29668737024,
+    29668737024,
+    0,
+    monContainers[9],
+    36864
+  ),
+];
 
-monContainer1
-  .querySelector(".btn-levelup")
-  .addEventListener("click", slime.buyLevel.bind(slime));
-monContainer1
-  .querySelector(".mon-name")
-  .addEventListener("click", slime.clickMonster.bind(slime));
-monContainer2
-  .querySelector(".btn-levelup")
-  .addEventListener("click", rat.buyLevel.bind(rat));
-monContainer2
-  .querySelector(".mon-name")
-  .addEventListener("click", rat.clickMonster.bind(rat));
-monContainer3
-  .querySelector(".btn-levelup")
-  .addEventListener("click", sprout.buyLevel.bind(sprout));
-monContainer3
-  .querySelector(".mon-name")
-  .addEventListener("click", sprout.clickMonster.bind(sprout));
-monContainer4
-  .querySelector(".btn-levelup")
-  .addEventListener("click", imp.buyLevel.bind(imp));
-monContainer4
-  .querySelector(".mon-name")
-  .addEventListener("click", imp.clickMonster.bind(imp));
-monContainer5
-  .querySelector(".btn-levelup")
-  .addEventListener("click", hawk.buyLevel.bind(hawk));
-monContainer5
-  .querySelector(".mon-name")
-  .addEventListener("click", hawk.clickMonster.bind(hawk));
-monContainer6
-  .querySelector(".btn-levelup")
-  .addEventListener("click", hound.buyLevel.bind(hound));
-monContainer6
-  .querySelector(".mon-name")
-  .addEventListener("click", hound.clickMonster.bind(hound));
-monContainer7
-  .querySelector(".btn-levelup")
-  .addEventListener("click", bear.buyLevel.bind(bear));
-monContainer7
-  .querySelector(".mon-name")
-  .addEventListener("click", bear.clickMonster.bind(bear));
-monContainer8
-  .querySelector(".btn-levelup")
-  .addEventListener("click", werewolf.buyLevel.bind(werewolf));
-monContainer8
-  .querySelector(".mon-name")
-  .addEventListener("click", werewolf.clickMonster.bind(werewolf));
-monContainer9
-  .querySelector(".btn-levelup")
-  .addEventListener("click", golem.buyLevel.bind(golem));
-monContainer9
-  .querySelector(".mon-name")
-  .addEventListener("click", golem.clickMonster.bind(golem));
-monContainer10
-  .querySelector(".btn-levelup")
-  .addEventListener("click", troll.buyLevel.bind(troll));
-monContainer10
-  .querySelector(".mon-name")
-  .addEventListener("click", troll.clickMonster.bind(troll));
+function addEventListeners(monster) {
+  monster.elementContainer
+    .querySelector(".btn-levelup")
+    .addEventListener("click", monster.buyLevel.bind(monster));
+  monster.elementContainer
+    .querySelector(".mon-name")
+    .addEventListener("click", monster.clickMonster.bind(monster));
+}
+
+monsters.forEach((monster) => addEventListeners(monster));
