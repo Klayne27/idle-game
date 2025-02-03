@@ -7,7 +7,7 @@
 body {
   min-height: 100vh;
   min-width: 100vh;
-  background-color: #6b7077;
+  background-color: #375080;
   user-select: none;
 }
 
@@ -40,12 +40,12 @@ body {
   padding: 10px;
   border-radius: 8px;
   width: 450px;
-   position: relative; /* Add this line */
+   position: relative;
 }
 
 .locked {
-  z-index: 5; /* Add this line */
-  pointer-events: none; /* Optional: Prevent interaction with locked elements */
+  z-index: 5;
+  pointer-events: none;
 }
 
 .locked::after {
@@ -55,7 +55,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.788);
+  background-color: rgba(0, 0, 0, 0.904);
   z-index: 1;
   border-radius: 8px;
   pointer-events: none;
@@ -72,15 +72,23 @@ body {
 .mon-name {
   grid-column: 1;
   grid-row: 1;
-  border: 2px solid #1e2124;
+  position: absolute;
+  right: 320px;
+  bottom: 22%;
+  border: 4px solid #1e2124;
   font-size: 16px;
   font-weight: bold;
   background-color: #3e4c7a;
   color: white;
-  border-radius: 10px;
-  width: 120px;
-  height: 70px;
+  border-radius: 50%;
+  width: 115px;
+  height: 115px;
   cursor: pointer;
+  z-index: 0;
+    display: flex;
+  justify-content: center;  /* Centers text horizontally */
+  align-items: flex-start;  /* Aligns text to the top */
+  padding-top: 40px;
 }
 
 .mon-name:hover {
@@ -99,10 +107,14 @@ body {
   color: white;
   text-align: center;
   justify-self: center;
-  border: 2px solid #1e2124;
+  border: 4px solid #1e2124;
   background-color: #282b30;
+  width: 120px;
   padding: 0px 30px;
-  border-radius: 10px;
+  border-radius: 30px 30px 30px 30px;
+    position: absolute;
+    bottom: 19%;
+    right: 72%
 }
 
 .gold-drop {
@@ -112,11 +124,11 @@ body {
   font-weight: bold;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-self: center;
-  border: 2px solid #1e2124;
+  align-items: left;
+  text-align: left;
+  border: 4px solid #1e2124;
   padding: 15px 110px;
-  border-radius: 5px;
+  border-radius: 20px 100px 100px 20px;
   position: relative;
   overflow: hidden;
   background-color: #6b7077; 
@@ -148,8 +160,8 @@ body {
   font-size: 14px;
   background-color: #e08132;
   color: white;
-  border: 2px solid #1e2124;
-  border-radius: 5px;
+  border: 3px solid #1e2124;
+  border-radius: 10px 10px 10px 10px;
   cursor: pointer;
   height: 50px;
   width: 200px;
@@ -165,8 +177,8 @@ body {
   color: white;
   font-family: "Courier New", Courier, monospace;
   background-color: #51565e;
-  border: 2px solid #1e2124;
-  border-radius: 5px;
+  border: 3px solid #1e2124;
+  border-radius: 10px 10px 10px 10px;
   height: 50px;
   width: 100px;
 }
@@ -195,11 +207,11 @@ body {
 
 
 .unlock-button.cannot-afford {
-  background-color: grey;
+  background-color: #51565e;
   cursor: not-allowed;
 }
 
 .btn-levelup.cannot-afford {
-  background-color: grey;
+  background-color: #51565e;
   cursor: not-allowed;
 }

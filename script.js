@@ -14,7 +14,7 @@ const monContainers = [
 ];
 
 const player = {
-  gold: 719,
+  gold: 9999999999999999,
 };
 
 class Monster {
