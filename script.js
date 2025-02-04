@@ -14,7 +14,7 @@ const monContainers = [
 ];
 
 const player = {
-  gold: 9999999009099999,
+  gold: 4,
 };
 
 
