@@ -17,6 +17,7 @@ const player = {
   gold: 9999999009099999,
 };
 
+
 class Monster {
   constructor(
     name,
@@ -187,7 +188,7 @@ const monsters = [
 
 function formatNumber(value) {
   if (value < 1e6) {
-    return value.toLocaleString(undefined, {
+    return value.toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
