@@ -14,7 +14,7 @@ const monContainers = [
 ];
 
 const player = {
-  gold: 9999999999999999,
+  gold: 9999999009099999,
 };
 
 class Monster {
@@ -66,7 +66,7 @@ class Monster {
         clearInterval(this.timerInterval);
         this.isTimed = false;
         player.gold += this.goldDrop;
-        goldDisplay.textContent = `Gold: 💰${player.gold.toFixed(2)}`;
+        goldDisplay.textContent = `💰${formatNumber(player.gold)}`;
         const goldDropElement = this.elementContainer.querySelector(".gold-drop");
         goldDropElement.classList.add("filled");
         this.resetTimer();
@@ -110,18 +110,6 @@ class Monster {
     updateAllUnlockButtons();
   }
 
-  unlockMonster() {
-    if (player.gold >= this.unlockPrice) {
-      player.gold -= this.unlockPrice;
-      this.elementContainer.classList.remove("locked");
-      this.elementContainer.querySelector(".unlock-button").remove();
-      this.level++;
-      this.monsterScaling();
-      this.updateUI();
-      updateAllUnlockButtons();
-    }
-  }
-
   monsterScaling() {
     const scalingFactors = {
       Slime: 1.07,
@@ -139,13 +127,13 @@ class Monster {
   }
 
   updateUI() {
-    goldDisplay.textContent = `Gold: 💰${player.gold.toFixed(2)}`;
+    goldDisplay.textContent = `💰${formatNumber(player.gold)}`;
 
     const goldDropText = this.elementContainer.querySelector(".gold-drop");
-    goldDropText.textContent = `Gold drop: 🪙${this.goldDrop.toFixed(2)}`;
+    goldDropText.textContent = `🪙${formatNumber(this.goldDrop)}`;
 
     const btnLevelupText = this.elementContainer.querySelector(".btn-levelup");
-    btnLevelupText.textContent = `Level up: 💰${this.price.toFixed(2)}`;
+    btnLevelupText.textContent = `💰${formatNumber(this.price)}`;
 
     const monsterLevel = this.elementContainer.querySelector(".mon-level");
     monsterLevel.textContent = `Level ${this.level}`;
@@ -165,7 +153,7 @@ class Monster {
   }
 
   updateUnlockButton() {
-    const levelUpButton = this.elementContainer.querySelector('.btn-levelup')
+    const levelUpButton = this.elementContainer.querySelector(".btn-levelup");
     const unlockButton = this.elementContainer.querySelector(".unlock-button");
     if (!unlockButton) return;
     if (!levelUpButton) return;
@@ -197,8 +185,29 @@ const monsters = [
   ),
 ];
 
+function formatNumber(value) {
+  if (value < 1e6) {
+    return value.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
+
+  const suffixes = ["million", "million", "billion", 'trillion', 'quadrillion', 'quintillion'];
+  let suffixIndex = -1;
+  let formattedValue = value;
+
+  while (formattedValue >= 1e3 && suffixIndex < suffixes.length - 1) {
+    formattedValue /= 1e3;
+    suffixIndex++;
+  }
+
+  return `${formattedValue.toFixed(suffixIndex === 2 ? 3 : 2)}${suffixes[suffixIndex]}`;
+}
+
 function updateAllUnlockButtons() {
   monsters.forEach((monster) => monster.updateUnlockButton());
+  monsters.forEach((monster) => monster.updateTimerDisplay());
 }
 
 monsters.forEach((monster) => addEventListeners(monster));
